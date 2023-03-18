@@ -4,7 +4,18 @@ import 'package:madlab1/pages/login.dart';
 // import './pages/list.dart';
 
 void main() {
-  runApp(const Home());
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}):super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Home(),
+    );
+  }
 }
 
 class Home extends StatefulWidget {
@@ -15,10 +26,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  Future _initializeFirebase() async{
+  Future<FirebaseApp> _initializeFirebase() async{
     FirebaseApp firebaseApp =  await Firebase.initializeApp();
+    return firebaseApp;
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
@@ -27,7 +39,9 @@ class _HomeState extends State<Home> {
           if(snapshot.connectionState == ConnectionState.done){
             return Login();
           }
-          return CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

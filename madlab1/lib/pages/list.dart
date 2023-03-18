@@ -36,7 +36,7 @@ class _MylistState extends State<Mylist> {
         title: const Text("My List Page"),
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: subjects.map((e) => SubjectCard(e)).toList(),
       ),
     );
