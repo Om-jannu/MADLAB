@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Home(),
     );
   }
@@ -33,16 +34,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: _initializeFirebase(),
-        builder: (context,snapshot){
-          if(snapshot.connectionState == ConnectionState.done){
-            return Login();
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      body: SafeArea(
+        child: FutureBuilder(
+          future: _initializeFirebase(),
+          builder: (context,snapshot){
+            if(snapshot.connectionState == ConnectionState.done){
+              return Login();
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

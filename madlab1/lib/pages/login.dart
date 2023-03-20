@@ -35,106 +35,97 @@ class _LoginState extends State<Login> {
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            child: Image(
-              image: AssetImage('/images/loginHero.jpg'),
-              fit: BoxFit.cover,
-              height: 350,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Image(image: AssetImage('assets/images/andDev.png')),
+            const SizedBox(
+              height: 18.0,
             ),
-          ),
-          const SizedBox(
-            height: 18.0,
-          ),
-          Center(
-            child: Column(
-              children: const [
-                Text(
-                  "MAD PWA Academy",
-                  style: TextStyle(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(255, 114, 94, 1)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    hintText: "User Email Address",
+                    prefixIcon: Icon(
+                      Icons.email,
                       color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Login to your app",
-                  style: TextStyle(
+                    )),
+              ),
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _passwordController,
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(255, 114, 94, 1)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
+                    hintText: "User Password",
+                    prefixIcon: Icon(
+                      Icons.lock,
                       color: Colors.black,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w900),
-                ),
-              ],
+                    )),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 18.0,
-          ),
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-                hintText: "User Email Address",
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: Colors.black,
-                )),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          TextField(
-            controller: _passwordController,
-            keyboardType: TextInputType.text,
-            obscureText: true,
-            decoration: const InputDecoration(
-                hintText: "User Password",
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: Colors.black,
-                )),
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 10.0,
+            const SizedBox(
+              height: 18.0,
             ),
-            child: RawMaterialButton(
+            Container(
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(
-                vertical: 15.0,
+                vertical: 20.0,
                 horizontal: 10.0,
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              fillColor: Colors.blue[900],
-              onPressed: () async {
-                User? user = await LoginUsingEmailAndPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    context: context);
-                if (user != null) {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Mylist()));
-                }
-              },
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
+              child: RawMaterialButton(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15.0,
+                  horizontal: 10.0,
+                ),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                fillColor: Color.fromRGBO(255, 114, 94, 1),
+                onPressed: () async {
+                  User? user = await LoginUsingEmailAndPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      context: context);
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => Mylist()));
+                  }
+                },
+                child: const Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Color.fromRGBO(39, 49, 58, 1),
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
